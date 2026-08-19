@@ -42,17 +42,42 @@ export interface CarouselProject {
 
 const projects: CarouselProject[] = [
   {
+    id: "delphi-tunnel",
+    title: "Gerenciador de Túnel SSH & Proxy (Delphi / Pascal)",
+    shortTitle: "Túnel Delphi (Open Source)",
+    subtitle: "Gerenciador de conexões de rede, túneis SSH e rotas seguras desktop em Object Pascal.",
+    category: "Open Source / Desktop & Rede",
+    year: "2024—2025",
+    role: "Desenvolvedor Delphi (Autor)",
+    image: "/assets/target-live-preview.jpg",
+    badge: "Open Source (GitHub)",
+    description:
+      "Ferramenta desktop desenvolvida em Delphi para estabelecer e monitorar túneis SSH, redirecionamento de portas e rotas seguras de comunicação com reconexão automática e tratamento de sockets.",
+    challenge:
+      "Garantir a manutenção de conexões de túnel em ambientes de rede instáveis com reconexão transparente e controle direto de portas.",
+    solution:
+      "Arquitetura multithread em Object Pascal com tratamento de eventos Indy, logs de tráfego em tempo real e sinalização visual de status.",
+    results: [
+      "Código-fonte aberto e disponível no GitHub",
+      "Gerenciamento intuitivo de múltiplos túneis de porta",
+      "Reconexão automática transparente sem queda de serviço",
+    ],
+    techStack: ["Delphi", "Object Pascal", "SSH Protocols", "Sockets", "WinAPI", "Open Source"],
+    type: "external-vostro",
+    externalUrl: "https://github.com/kauandlopes",
+  },
+  {
     id: "target-live",
     title: "Target Live — Business Intelligence em Tempo Real",
     shortTitle: "Target Live BI",
     subtitle: "Dashboard analítico conectado a pontos de venda com faturamento, giro de mesa e curva ABC.",
-    category: "BI & Analytics / Web App",
+    category: "Proprietário / Enterprise",
     year: "2025—2026",
     role: "Desenvolvimento Full-Stack & BI",
     image: "/assets/target-live-preview.jpg",
-    badge: "BI ao Vivo",
+    badge: "Proprietário / Enterprise",
     description:
-      "Plataforma de Business Intelligence desenvolvida para fornecer aos gestores visibilidade instantânea sobre o faturamento, ticket médio por comanda, taxa de giro de mesa, ranking de atendentes e curva ABC de produtos (Pareto 80/20).",
+      "Plataforma corporativa de Business Intelligence desenvolvida para fornecer aos gestores visibilidade instantânea sobre faturamento, ticket médio, taxa de giro de mesa e curva ABC de produtos (Pareto 80/20).",
     challenge:
       "Transformar centenas de lançamentos de vendas e comandas abertas em indicadores simples e imediatos para a tomada de decisão no caixa e na cozinha.",
     solution:
@@ -70,11 +95,11 @@ const projects: CarouselProject[] = [
     title: "MarIA — Agente Inteligente Financeiro & ERP",
     shortTitle: "MarIA Target AI",
     subtitle: "Assistente de IA financeira com Function Calling integrada a regras de negócio e conciliação.",
-    category: "IA Generativa & Agentes",
+    category: "Proprietário / IA Corporativa",
     year: "2025—2026",
     role: "Criador & Desenvolvedor de IA",
     image: "/assets/messaging-preview.jpg",
-    badge: "Agente IA",
+    badge: "Proprietário / Enterprise",
     description:
       "Agente de IA financeira corporativa capaz de consultar saldos, realizar conciliações, responder dúvidas sobre regras fiscais e sugerir ações de caixa utilizando Tool Calling e APIs de modelos avançados.",
     challenge:
@@ -94,13 +119,13 @@ const projects: CarouselProject[] = [
     title: "TargetClient — Central de Chamados & Acessos RBAC",
     shortTitle: "TargetClient",
     subtitle: "Esteira corporativa de tickets, acompanhamento de sprints e controle granular de permissões.",
-    category: "Sistemas & Help Desk",
+    category: "Proprietário / Enterprise",
     year: "2025—2026",
     role: "Desenvolvedor Full-Stack",
     image: "/assets/target-live-preview.jpg",
-    badge: "Help Desk & RBAC",
+    badge: "Proprietário / Enterprise",
     description:
-      "Sistema de tickets e atendimento que organiza mais de 500 chamados técnicos entre times de Desenvolvimento, Suporte, Implantação e Qualidade, com matriz de permissões por departamento.",
+      "Sistema corporativo de tickets e atendimento que organiza mais de 500 chamados técnicos entre times de Desenvolvimento, Suporte, Implantação e Qualidade, com matriz de permissões por departamento.",
     challenge:
       "Organizar a fila de chamados por urgência e garantir que cada departamento tenha acesso apenas às rotinas autorizadas.",
     solution:
@@ -116,15 +141,15 @@ const projects: CarouselProject[] = [
   {
     id: "mensageria-hub",
     title: "Hub de Mensageria Multicanal & ERP TargetX",
-    shortTitle: "Mensageria",
+    shortTitle: "Mensageria ERP",
     subtitle: "Gateway unificado com Evolution API, WhatsApp Oficial Meta, Resend e SMS Market.",
-    category: "Automação & Integrações",
+    category: "Proprietário / Automação",
     year: "2025—2026",
     role: "Engenharia de Integração",
     image: "/assets/messaging-preview.jpg",
-    badge: "WhatsApp & SMS API",
+    badge: "Proprietário / Enterprise",
     description:
-      "Plataforma que centraliza o envio de mensagens para clientes a partir de eventos do ERP TargetX. Conecta instâncias da Evolution API, API Oficial do WhatsApp, e-mails via Resend e SMS via SMS Market.",
+      "Plataforma proprietária que centraliza o envio de mensagens para clientes a partir de eventos do ERP TargetX. Conecta instâncias da Evolution API, API Oficial do WhatsApp, e-mails via Resend e SMS via SMS Market.",
     challenge:
       "Gerenciar múltiplos canais com diferentes limites de taxa e formatos sem gerar mensagens duplicadas ou perder notificações.",
     solution:
@@ -139,14 +164,14 @@ const projects: CarouselProject[] = [
   },
   {
     id: "vostro-store",
-    title: "Vostro — Vitrine Digital & Moda",
+    title: "Vostro — Vitrine Digital & E-Commerce",
     shortTitle: "Vostro E-Commerce",
     subtitle: "Catálogo online e-commerce desenvolvido com design editorial limpo e foco em conversão.",
-    category: "E-Commerce / Web",
+    category: "Proprietário / Produção",
     year: "2024—2025",
     role: "Desenvolvimento Front-End & UI",
     image: "/assets/vostro-preview.jpg",
-    badge: "Online em Produção",
+    badge: "Em Produção (vostro.targetx.com.br)",
     description:
       "Plataforma e-commerce e vitrine virtual para a marca Vostro (vostro.targetx.com.br), criada para valorizar coleções de vestuário através de navegação fluida e estética moderna.",
     challenge:
@@ -165,13 +190,13 @@ const projects: CarouselProject[] = [
   {
     id: "delivery-targetx",
     title: "Delivery TargetX — Plataforma de Pedidos",
-    shortTitle: "Delivery",
+    shortTitle: "Delivery TargetX",
     subtitle: "Cardápio digital ágil e sistema de pedidos conectado ao fluxo de atendimento e PDV.",
-    category: "Food Tech & Pedidos",
+    category: "Proprietário / Produção",
     year: "2024—2025",
     role: "Desenvolvedor Web",
     image: "/assets/target-live-preview.jpg",
-    badge: "Online em Produção",
+    badge: "Em Produção (delivery.targetx.com.br)",
     description:
       "Plataforma web de pedidos e delivery rápido (delivery.targetx.com.br) conectada diretamente ao sistema de cozinha e caixa.",
     challenge:
@@ -190,13 +215,13 @@ const projects: CarouselProject[] = [
   {
     id: "hackathon-receita",
     title: "Inovação em Saúde — Hackathon Receita Federal",
-    shortTitle: "Hackathon Inovação",
+    shortTitle: "Hackathon Receita",
     subtitle: "Conversão sustentável de componentes apreendidos em inaladores terapêuticos de baixo custo.",
-    category: "Inovação Social & Saúde",
+    category: "Projeto Acadêmico & Social",
     year: "2025",
     role: "Pesquisa & Modelagem de Proposta",
     image: "/assets/hackathon-preview.jpg",
-    badge: "Reconhecimento Oficial",
+    badge: "Projeto Acadêmico Premiado",
     description:
       "Proposta premiada na maratona da Receita Federal propondo o reaproveitamento de componentes nobres de cigarros eletrônicos apreendidos (baterias recarregáveis e sensores) para montagem de inaladores terapêuticos para o SUS.",
     challenge:

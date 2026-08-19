@@ -4,15 +4,37 @@ import ProjectModal, { ProjectData } from "./ProjectModal";
 
 const projectsList: ProjectData[] = [
   {
+    id: "delphi-tunnel",
+    title: "Gerenciador de Túnel SSH & Proxy (Delphi / Pascal)",
+    subtitle: "Gerenciamento de conexões de rede, túneis SSH e rotas de comunicação em Object Pascal.",
+    category: "Open Source / Desktop",
+    year: "2024—2025",
+    role: "Desenvolvedor Delphi (Autor)",
+    image: "/assets/target-live-preview.jpg",
+    description:
+      "Aplicação desktop em Delphi (Object Pascal) para criação, escuta e gerenciamento de túneis SSH, proxies e rotas seguras com reconexão automática e controle direto de portas.",
+    challenge:
+      "Manter conexões de túnel estáveis em redes corporativas sujeitas a oscilações sem queda de serviço.",
+    solution:
+      "Arquitetura multithread em Object Pascal com tratamento de eventos Indy sockets e logs de pacotes em tempo real.",
+    results: [
+      "Código-fonte aberto e publicado no GitHub",
+      "Gerenciamento simples de portas e pontes de conexão",
+      "Reconexão automática transparente sem travar o sistema",
+    ],
+    techStack: ["Delphi", "Object Pascal", "SSH Protocols", "Sockets", "WinAPI", "Open Source"],
+    liveUrl: "https://github.com/kauandlopes",
+  },
+  {
     id: "target-live",
     title: "Target Live — Business Intelligence",
     subtitle: "Dashboard analítico em tempo real para faturamento, giro de mesa e curva ABC.",
-    category: "BI & Analytics / Web App",
+    category: "Proprietário / Enterprise",
     year: "2025—2026",
     role: "Full-Stack & BI Developer",
     image: "/assets/target-live-preview.jpg",
     description:
-      "Plataforma completa de Business Intelligence conectada aos pontos de venda e fechamentos de contas. Apresenta métricas instantâneas como faturamento bruto, ticket médio por comanda, taxa de giro de mesa, performance individual de atendentes e curva ABC de produtos (Pareto 80/20).",
+      "Plataforma corporativa de Business Intelligence conectada aos pontos de venda e fechamentos de contas. Apresenta métricas instantâneas como faturamento bruto, ticket médio por comanda, taxa de giro de mesa, performance individual de atendentes e curva ABC de produtos (Pareto 80/20).",
     challenge:
       "Transformar centenas de registros de vendas e comandas abertas em indicadores visuais diretos, permitindo que gerentes tomem decisões de compras e estoques sem atrasos de relatório.",
     solution:
