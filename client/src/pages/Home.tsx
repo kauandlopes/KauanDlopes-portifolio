@@ -4,7 +4,7 @@ import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AboutAndBio from "@/components/AboutAndBio";
-import ProjectCarousel from "@/components/ProjectCarousel";
+import ProjectShowcase from "@/components/ProjectShowcase";
 import TechStackIcons from "@/components/TechStackIcons";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import ContactSection from "@/components/ContactSection";
@@ -32,8 +32,8 @@ export default function Home() {
       {/* About & Bio Narrative (Sincere & Dedicated) */}
       <AboutAndBio />
 
-      {/* Project Carousel with in-depth active card and interactive modal triggers */}
-      <ProjectCarousel />
+      {/* Catálogo de Projetos: grid filtrável + modal com demos ao vivo */}
+      <ProjectShowcase />
 
       {/* Technologies, Libraries & IAs Grid (DeepSeek, Groq, OpenAI, Function Calling, MarIA) */}
       <TechStackIcons />

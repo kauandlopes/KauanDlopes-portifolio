@@ -164,7 +164,7 @@ export default function Hero() {
               <div className="relative p-2.5 sm:p-3 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-strong)] shadow-sm group">
                 <div className="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-[var(--bg-surface)] grayscale-[20%] group-hover:grayscale-0 transition-all duration-700">
                   <img
-                    src="/assets/kauan-profile.jpg"
+                    src={`${import.meta.env.BASE_URL}assets/kauan-profile.jpg`}
                     alt="Kauan Dias Lopes"
                     className="w-full h-full object-cover scale-100 group-hover:scale-[1.02] transition-transform duration-700 ease-out"
                   />

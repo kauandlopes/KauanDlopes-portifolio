@@ -1,80 +1,62 @@
 import React, { useState } from "react";
-import {
-  Sparkles,
-  Bot,
-  BrainCircuit,
-  Cpu,
-  Code2,
-  Server,
-  Database,
-  Layers,
-  MessageSquare,
-  Wrench,
-  Zap,
-  Globe,
-  Terminal,
-  FileCode2,
-  Workflow,
-  Send,
-  Boxes,
-  Compass,
-} from "lucide-react";
+import { Sparkles, BrainCircuit } from "lucide-react";
+import { TechIcon } from "@/lib/techIcons";
 
 interface TechItem {
   name: string;
   category: "ai" | "frontend" | "backend" | "messaging" | "tools";
   badge?: string;
-  icon?: string;
 }
 
 const techItems: TechItem[] = [
   // Inteligência Artificial & LLMs
-  { name: "MarIA (Target Finance AI)", category: "ai", badge: "Criador do Agente" },
-  { name: "DeepSeek API", category: "ai", badge: "LLM & Raciocínio" },
-  { name: "Google AI Studio / Gemini", category: "ai", badge: "Multimodal & Prototipagem" },
-  { name: "Groq LPU", category: "ai", badge: "Inferência Ultra-Rápida" },
-  { name: "OpenAI GPT-4o API", category: "ai", badge: "Embeddings & Chat" },
-  { name: "Function / Tool Calling", category: "ai", badge: "Arquitetura de Ações" },
-  { name: "RAG & Busca Semântica", category: "ai", badge: "Notas Fiscais & Docs" },
-  { name: "Prompt Engineering & Guardrails", category: "ai", badge: "Regras de Negócio" },
+  { name: "MarIA", category: "ai", badge: "Agente Financeiro Próprio (Target Finance AI)" },
+  { name: "DeepSeek", category: "ai", badge: "API — LLM & Raciocínio" },
+  { name: "Google Gemini", category: "ai", badge: "Google AI Studio — Multimodal" },
+  { name: "Groq", category: "ai", badge: "Inferência Ultra-Rápida (LPU)" },
+  { name: "OpenAI", category: "ai", badge: "GPT-4o — Embeddings & Chat" },
+  { name: "Function Calling", category: "ai", badge: "Tool Calling — Arquitetura de Ações" },
+  { name: "RAG", category: "ai", badge: "Busca Semântica — Notas Fiscais & Docs" },
+  { name: "Prompt Engineering", category: "ai", badge: "Guardrails & Regras de Negócio" },
 
   // Front-End & UI
-  { name: "React 19", category: "frontend" },
+  { name: "React", category: "frontend", badge: "v19" },
   { name: "TypeScript", category: "frontend" },
   { name: "Next.js", category: "frontend" },
-  { name: "JavaScript (ES6+)", category: "frontend" },
+  { name: "JavaScript", category: "frontend", badge: "ES6+" },
   { name: "Tailwind CSS", category: "frontend" },
-  { name: "HTML5 & CSS3 Semântico", category: "frontend" },
-  { name: "Recharts & Visualização", category: "frontend" },
+  { name: "HTML5", category: "frontend" },
+  { name: "CSS3", category: "frontend", badge: "Semântico" },
+  { name: "Recharts", category: "frontend", badge: "Visualização de Dados" },
   { name: "Framer Motion", category: "frontend" },
-  { name: "Radix UI / Shadcn UI", category: "frontend" },
-  { name: "Design Editorial & Responsividade", category: "frontend" },
+  { name: "Radix UI", category: "frontend", badge: "Shadcn UI" },
 
   // Back-End & APIs
   { name: "Node.js", category: "backend" },
-  { name: "Express.js", category: "backend" },
-  { name: "REST APIs & Webhooks", category: "backend" },
+  { name: "Express", category: "backend", badge: "Express.js" },
+  { name: "REST API", category: "backend", badge: "& Webhooks" },
   { name: "Python", category: "backend" },
-  { name: "Java (POO & SOLID)", category: "backend" },
-  { name: "PostgreSQL & SQL", category: "backend" },
+  { name: "Java", category: "backend", badge: "POO & SOLID" },
+  { name: "PostgreSQL", category: "backend", badge: "& SQL" },
   { name: "MongoDB", category: "backend" },
 
   // Mensageria & Integrações
-  { name: "Evolution API (WhatsApp)", category: "messaging", badge: "Instâncias & Eventos" },
-  { name: "WhatsApp Cloud API Oficial", category: "messaging", badge: "Meta Business" },
-  { name: "Resend / Send", category: "messaging", badge: "Email Transacional" },
-  { name: "SMS Market Gateway", category: "messaging", badge: "Disparo em Lote" },
-  { name: "ERP TargetX Sync", category: "messaging", badge: "Integração Operacional" },
+  { name: "Evolution API", category: "messaging", badge: "WhatsApp — Instâncias & Eventos" },
+  { name: "WhatsApp", category: "messaging", badge: "Cloud API Oficial — Meta Business" },
+  { name: "Resend", category: "messaging", badge: "Email Transacional" },
+  { name: "SMS Gateway", category: "messaging", badge: "SMS Market — Disparo em Lote" },
+  { name: "ERP TargetX", category: "messaging", badge: "Sincronização Operacional" },
 
   // Ferramentas & Métodos
-  { name: "Git & GitHub", category: "tools" },
+  { name: "Git", category: "tools" },
+  { name: "GitHub", category: "tools" },
   { name: "Docker", category: "tools" },
   { name: "VS Code", category: "tools" },
   { name: "Postman", category: "tools" },
-  { name: "AutoCAD & Métrica", category: "tools" },
-  { name: "Lean Six Sigma (White Belt)", category: "tools", badge: "Melhoria Contínua" },
-  { name: "Scrum & Metodologias Ágeis", category: "tools" },
-  { name: "Governança TI (ITIL / COBIT)", category: "tools" },
+  { name: "AutoCAD", category: "tools", badge: "Métrica" },
+  { name: "Lean Six Sigma", category: "tools", badge: "White Belt — Melhoria Contínua" },
+  { name: "Scrum", category: "tools", badge: "Metodologias Ágeis" },
+  { name: "ITIL / COBIT", category: "tools", badge: "Governança de TI" },
 ];
 
 export default function TechStackIcons() {
@@ -162,12 +144,8 @@ export default function TechStackIcons() {
               className="p-4 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)] hover:border-[var(--border-strong)] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group"
             >
               <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
-                <span className="w-8 h-8 rounded-lg bg-[var(--bg-surface)] text-[var(--text-secondary)] flex items-center justify-center text-xs font-mono-meta font-bold group-hover:bg-[var(--accent-moss-dark)] group-hover:text-[var(--bg-card)] transition-colors duration-300">
-                  {item.category === "ai" && <Bot className="w-4 h-4" />}
-                  {item.category === "frontend" && <Code2 className="w-4 h-4" />}
-                  {item.category === "backend" && <Server className="w-4 h-4" />}
-                  {item.category === "messaging" && <Send className="w-4 h-4" />}
-                  {item.category === "tools" && <Wrench className="w-4 h-4" />}
+                <span className="w-9 h-9 rounded-lg bg-[var(--bg-surface)] flex items-center justify-center group-hover:border group-hover:border-[var(--border-strong)] transition-colors duration-300">
+                  <TechIcon name={item.name} className="w-[18px] h-[18px]" />
                 </span>
                 {item.badge && (
                   <span className="px-2 py-1 rounded bg-[var(--bg-surface)] text-[9px] font-mono-meta font-bold text-[var(--text-secondary)] uppercase tracking-wider text-right">
