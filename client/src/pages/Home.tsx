@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AboutAndBio from "@/components/AboutAndBio";
 import ProjectShowcase from "@/components/ProjectShowcase";
-import TechStackIcons from "@/components/TechStackIcons";
+
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import ContactSection from "@/components/ContactSection";
 
@@ -35,8 +35,6 @@ export default function Home() {
       {/* Catálogo de Projetos: grid filtrável + modal com demos ao vivo */}
       <ProjectShowcase />
 
-      {/* Technologies, Libraries & IAs Grid (DeepSeek, Groq, OpenAI, Function Calling, MarIA) */}
-      <TechStackIcons />
 
       {/* Professional Journey & Timeline */}
       <ExperienceTimeline />

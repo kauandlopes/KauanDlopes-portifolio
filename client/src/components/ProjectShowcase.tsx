@@ -4,6 +4,7 @@ import { ArrowUpRight, Eye } from "lucide-react";
 import { projects, ProjectData } from "@/data/projects";
 import { TechIcon } from "@/lib/techIcons";
 import ProjectModal from "./ProjectModal";
+import SafariBrowserMockup from "./SafariBrowserMockup";
 
 /** Small rotating seal — the same visual device used in the Hero portrait,
  *  echoed here so the "vintage stamp" motif reads as a signature, not a one-off. */
@@ -60,6 +61,11 @@ export default function ProjectShowcase() {
           <p className="font-sans-body text-base text-[var(--text-muted)] max-w-sm lg:pb-2">
             De centrais de Business Intelligence a hubs de mensageria e comércio digital. Filtre por frente de atuação ou clique num card para ver a demonstração ao vivo.
           </p>
+        </div>
+
+        {/* Safari Browser Mockup — troca de projeto em tempo real */}
+        <div className="mb-14">
+          <SafariBrowserMockup />
         </div>
 
         {/* Dynamic category filter */}

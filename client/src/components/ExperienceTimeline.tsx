@@ -13,40 +13,43 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    period: "Mar 2025 — Presente",
-    role: "Estagiário Desenvolvedor Web",
-    company: "Fomenta Vale & CIT Assis",
+    period: "Out/2025 — Atualmente",
+    role: "Trainee Dev Full-Stack & Inovação",
+    company: "Target Client",
     location: "Assis, SP",
     tag: "Atual",
+    highlights: [
+      "Planejamento, desenvolvimento e manutenção de produtos web e dashboards para ERPs legados (ticket médio, margens e Curva ABC).",
+      "Arquitetura de APIs (Node.js) para SaaS multi-tenant de mensageria omnicanal — WhatsApp, SMS e E-mail.",
+      "Criação de assistentes virtuais com IA generativa e RAG com Function Calling seguro contra prompt/SQL injection.",
+      "Modelagem de sistemas B2B/B2C (Marketplaces, Food/Delivery e fluxos em PHP/Laravel) e gestão ágil (Scrum/Kanban).",
+      "Da análise de regras fiscais ao refinamento de UX/UI, entregando soluções que eliminaram gargalos e modernizaram processos dos clientes.",
+    ],
+  },
+  {
+    period: "Jan/2025 — Out/2025",
+    role: "Estágio Voluntário — Gestão & Desenvolvimento Web",
+    company: "Fomenta Vale",
+    location: "Assis, SP",
+    tag: "Inovação",
     link: "https://fomentavale.com.br",
     highlights: [
-      "Desenvolvimento de páginas e interfaces web para projetos e parceiros da região de Assis/SP.",
-      "Colaboração nas rotinas do CIT Assis (Centro de Inovação e Tecnologia), apoiando iniciativas de tecnologia locais.",
-      "Apoio a novos voluntários e estudo de novas ferramentas para cursos e processos digitais.",
+      "Desenvolvimento de IA com RAG para gerenciamento e busca inteligente em notas fiscais, otimizando processos internos.",
+      "Gestão de projetos, levantamento de requisitos e análise de processos garantindo que o produto atendesse ao público-alvo.",
+      "Colaboração com diferentes áreas para alinhar objetivos, prazos e recursos — gestão de tempo e comunicação interpessoal.",
+      "Criação de protótipos funcionais para parceiros e melhoria no fluxo de credenciamento com Metodologias Ágeis.",
     ],
   },
   {
-    period: "Ago 2024 — Jan 2025",
-    role: "Técnico em TI & Apoio Operacional",
-    company: "Mercado Campeão",
-    location: "Assis, SP",
-    tag: "Sistemas & PDV",
-    highlights: [
-      "Suporte a computadores, periféricos de caixa e manutenção básica da rede do estabelecimento.",
-      "Operação do sistema ERP Infototal para cadastro de produtos, conferência de compras e relatórios de estoque.",
-      "Apoio direto no atendimento e resolução de dúvidas de operação do sistema.",
-    ],
-  },
-  {
-    period: "Jan 2023 — Jul 2024",
-    role: "Auxiliar de Geoprocessamento & Dados",
-    company: "Tigremaq Comércio de Máquinas e Impl. Agrícolas",
+    period: "2022 — 2024",
+    role: "Cartógrafo / Levantamento de Campo",
+    company: "Alfa",
     location: "Assis, SP",
     tag: "Dados & Campo",
     highlights: [
-      "Auxílio na organização e conferência de dados para Georreferenciamento e Cadastro Ambiental Rural (CAR).",
-      "Elaboração de desenhos em AutoCAD/Métrica e alimentação de planilhas de controle.",
-      "Trabalho em equipe com foco em prazos e precisão na documentação.",
+      "Organização de documentos cartorários em planilhas ODS (Excel), venda e negociação direta com clientes rurais.",
+      "Elaboração de plantas e dados geoespaciais em AutoCAD e Métrica.",
+      "Melhoria na organização e acesso a arquivos, contribuição para aumento das vendas e redução no tempo de entrega.",
     ],
   },
   {
@@ -58,6 +61,18 @@ const experiences: ExperienceItem[] = [
     highlights: [
       "Elaboração em equipe de projeto para reaproveitamento de componentes nobres de eletrônicos apreendidos para montagem de inaladores de baixo custo.",
       "Apresentação da proposta focada em sustentabilidade e atendimento à saúde pública.",
+    ],
+  },
+  {
+    period: "2025",
+    role: "Desenvolvedor Web — Diretor de Projetos",
+    company: "Inter Gestão JR. (Empresa Júnior)",
+    location: "Assis, SP",
+    tag: "Voluntário",
+    highlights: [
+      "Prototipação de propostas para clientes e orientação de novos trainees.",
+      "Gestão, comunicação e organização de projetos internos.",
+      "Desenvolvimento Web com HTML, CSS e JavaScript.",
     ],
   },
 ];
