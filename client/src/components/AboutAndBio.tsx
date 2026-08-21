@@ -51,7 +51,7 @@ export default function AboutAndBio() {
                 </a>
 
                 <a
-                  href="https://fatecassis.edu.br"
+                  href="https://fatecassis.cps.sp.gov.br"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-[var(--text-secondary)] font-bold hover:text-[var(--text-primary)] transition-colors"

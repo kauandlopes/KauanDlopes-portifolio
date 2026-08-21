@@ -136,6 +136,32 @@
   animation-play-state: paused;
 }
 
+/* Tech carousel scroll */
+@keyframes tech-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Popover entrance animation */
+@keyframes popover-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+.animate-popover-in {
+  animation: popover-in 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 7px;

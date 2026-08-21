@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TechCarousel from "./TechCarousel";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -76,7 +77,7 @@ export default function Hero() {
               </a>
 
               <a
-                href="https://fatecassis.edu.br"
+                href="https://fatecassis.cps.sp.gov.br"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)] text-[var(--text-secondary)] font-mono-meta text-xs font-bold hover:bg-[var(--bg-surface)] hover:border-[var(--border-strong)] transition-all shadow-sm group"
@@ -241,27 +242,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Marquee Ticker - Refined */}
-      <div className="w-full border-y border-[var(--border-color)] bg-[var(--bg-surface)]/50 py-3 mt-16 overflow-hidden">
-        <div className="animate-marquee font-mono-meta text-[11px] uppercase tracking-widest text-[var(--text-secondary)] flex items-center gap-8 font-semibold">
-          <span>Target Live BI</span>
-          <span className="text-[var(--accent-terra)] opacity-50">✦</span>
-          <span>MarIA Agente</span>
-          <span className="text-[var(--accent-terra)] opacity-50">✦</span>
-          <span>Central TargetClient</span>
-          <span className="text-[var(--accent-terra)] opacity-50">✦</span>
-          <span>Evolution API</span>
-          <span className="text-[var(--accent-terra)] opacity-50">✦</span>
-          <span>Fomenta Vale</span>
-          <span className="text-[var(--accent-terra)] opacity-50">✦</span>
-          <span>FATEC Assis</span>
-          <span className="text-[var(--accent-terra)] opacity-50">✦</span>
-          <span>Google AI Studio</span>
-          <span className="text-[var(--accent-terra)] opacity-50">✦</span>
-          <span>Delivery TargetX</span>
-          <span className="text-[var(--accent-terra)] opacity-50">✦</span>
-        </div>
-      </div>
+      {/* Tech Carousel — clique em qualquer tecnologia para saber mais */}
+      <TechCarousel />
     </section>
   );
 }
