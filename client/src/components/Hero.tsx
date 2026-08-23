@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import TechCarousel from "./TechCarousel";
 import {
   ArrowDown,
@@ -16,25 +16,10 @@ import {
 } from "lucide-react";
 
 export default function Hero() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 8; // Reduced intensity for more elegance
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 8;
-    setMousePos({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setMousePos({ x: 0, y: 0 });
-  };
-
   return (
     <section
       id="inicio"
       className="relative min-h-[92vh] pt-32 pb-16 flex flex-col justify-between overflow-hidden bg-grid-editorial bg-[var(--bg-page)]"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 w-full my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
@@ -155,12 +140,7 @@ export default function Hero() {
 
           {/* Right Column: Framed Portrait */}
           <div className="lg:col-span-5 relative flex justify-center lg:justify-end mt-12 lg:mt-0">
-            <div
-              className="relative w-full max-w-[420px] transition-transform duration-500 ease-out"
-              style={{
-                transform: `perspective(1000px) rotateY(${mousePos.x}deg) rotateX(${-mousePos.y}deg)`,
-              }}
-            >
+            <div className="relative w-full max-w-[420px]">
               {/* Clean Photo Frame */}
               <div className="relative p-2.5 sm:p-3 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-strong)] shadow-sm group">
                 <div className="relative aspect-[4/5] w-full rounded-xl overflow-hidden bg-[var(--bg-surface)] grayscale-[20%] group-hover:grayscale-0 transition-all duration-700">
