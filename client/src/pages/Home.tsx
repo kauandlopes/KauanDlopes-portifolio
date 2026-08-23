@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Preloader from "@/components/Preloader";
+import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AboutAndBio from "@/components/AboutAndBio";
@@ -13,6 +14,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[var(--bg-page)] text-[var(--text-primary)] relative">
+      {/* Interactive Custom Cursor */}
+      <CustomCursor />
       {/* Shutter Preloader Curtain */}
       {loading && <Preloader onComplete={() => setLoading(false)} />}
 
