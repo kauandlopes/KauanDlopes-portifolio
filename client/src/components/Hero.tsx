@@ -177,36 +177,6 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Refined Circular Badge */}
-              <a
-                href="#projetos"
-                className="absolute -top-6 -right-6 w-28 h-28 rounded-full bg-[var(--bg-card)] border border-[var(--border-strong)] text-[var(--text-primary)] shadow-sm flex items-center justify-center p-1.5 group cursor-pointer transition-transform duration-300 hover:scale-105 z-20"
-                aria-label="Ver projetos"
-              >
-                <svg
-                  className="w-full h-full animate-spin-slow"
-                  viewBox="0 0 100 100"
-                >
-                  <defs>
-                    <path
-                      id="heroBadgePath"
-                      d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
-                    />
-                  </defs>
-                  <text className="font-mono-meta text-[9px] uppercase font-bold tracking-[0.18em] fill-current text-[var(--text-secondary)]">
-                    <textPath href="#heroBadgePath">
-                      PROCESSOS • SISTEMAS • WEB •
-                    </textPath>
-                  </text>
-                </svg>
-
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-8 h-8 rounded-full bg-[var(--accent-terra)] text-[var(--bg-card)] flex items-center justify-center group-hover:rotate-45 transition-transform duration-300">
-                    <ArrowDown className="w-3.5 h-3.5" />
-                  </div>
-                </div>
-              </a>
-
               {/* Mini console badge - simplified */}
               <div className="absolute -bottom-4 -left-4 p-3 rounded-xl bg-[var(--bg-card)] border border-[var(--border-strong)] shadow-sm font-mono-meta text-[11px] max-w-[190px] hidden sm:block">
                 <div className="flex items-center gap-1.5 mb-1 text-[var(--accent-moss-dark)] font-bold">

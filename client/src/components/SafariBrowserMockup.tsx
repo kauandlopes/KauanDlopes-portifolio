@@ -1,34 +1,49 @@
-﻿import React, { useState, useEffect, useCallback } from "react";
-import { projects } from "@/data/projects";
-import { ExternalLink, RefreshCw, ChevronLeft, ChevronRight, Plus, X } from "lucide-react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { projects, ProjectData } from "@/data/projects";
+import {
+  ExternalLink,
+  RefreshCw,
+  ChevronLeft,
+  ChevronRight,
+  Lock,
+  Plus,
+  X,
+  ShieldCheck,
+  Globe,
+  Sparkles,
+  Maximize2,
+} from "lucide-react";
+import LiveTargetDashboard from "./LiveTargetDashboard";
+import LiveTicketSystem from "./LiveTicketSystem";
+import MessagingFlow from "./MessagingFlow";
 
 const browserProjects = projects.slice(0, 6);
 
 const tabUrls: Record<string, string> = {
-  "target-live":      "targetx.com.br/live",
-  "maria-ai":         "targetx.com.br/maria",
-  "target-client":    "targetx.com.br/client",
-  "mensageria-hub":   "targetx.com.br/connect",
-  "vostro-store":     "vostro.targetx.com.br",
+  "target-live": "targetx.com.br/live-bi",
+  "maria-ai": "targetx.com.br/maria-ai",
+  "target-client": "targetx.com.br/client-tickets",
+  "mensageria-hub": "targetx.com.br/connect-hub",
+  "vostro-store": "vostro.targetx.com.br",
   "delivery-targetx": "delivery.targetx.com.br",
 };
 
 const categoryColors: Record<string, string> = {
-  "Proprietário / Enterprise":    "#4f6349",
-  "Proprietário / IA Corporativa":"#354024",
-  "Proprietário / Automação":     "#6b4f2a",
-  "E-Commerce / Front-End":       "#7a5c38",
-  "Food Tech / Delivery":         "#b85e42",
-  "Open Source / Desktop":        "#3d5a7a",
-  "Inovação Social & Saúde Pública":"#5a4b7a",
+  "Proprietário / Enterprise": "#4f6349",
+  "Proprietário / IA Corporativa": "#354024",
+  "Proprietário / Automação": "#6b4f2a",
+  "E-Commerce / Front-End": "#7a5c38",
+  "Food Tech / Delivery": "#b85e42",
+  "Open Source / Desktop": "#3d5a7a",
+  "Inovação Social & Saúde Pública": "#5a4b7a",
 };
 
-function SafariFavicon({ project }: { project: typeof projects[0] }) {
+function SafariFavicon({ project }: { project: ProjectData }) {
   const color = categoryColors[project.category] || "#4f6349";
   const initial = project.shortTitle.charAt(0).toUpperCase();
   return (
     <span
-      className="w-3.5 h-3.5 rounded-sm flex items-center justify-center text-[7px] font-bold text-white shrink-0"
+      className="w-3.5 h-3.5 rounded-sm flex items-center justify-center text-[7px] font-bold text-white shrink-0 shadow-xs"
       style={{ background: color }}
     >
       {initial}
@@ -40,114 +55,136 @@ export default function SafariBrowserMockup() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [autoPlay, setAutoPlay] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const goTo = useCallback((idx: number) => {
     if (idx === activeIdx) return;
     setIsAnimating(true);
     setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 600);
     setTimeout(() => {
       setActiveIdx(idx);
       setIsAnimating(false);
-    }, 220);
+      setTimeout(() => setIsLoading(false), 500);
+    }, 180);
   }, [activeIdx]);
 
-  useEffect(() => {
-    if (!autoPlay) return;
-    const interval = setInterval(() => {
-      goTo((activeIdx + 1) % browserProjects.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, [activeIdx, autoPlay, goTo]);
+  const handleRefresh = () => {
+    setIsLoading(true);
+    setRefreshKey((k) => k + 1);
+    setTimeout(() => setIsLoading(false), 600);
+  };
 
   const project = browserProjects[activeIdx];
-  const url = tabUrls[project.id] || "targetx.com.br";
+  const url = tabUrls[project.id] || (project.liveUrl ? project.liveUrl.replace(/^https?:\/\//, "") : "targetx.com.br");
   const accentColor = categoryColors[project.category] || "#4f6349";
 
   return (
     <div
-      className="w-full rounded-[18px] overflow-hidden shadow-2xl border border-[var(--border-strong)] select-none"
-      style={{ background: "linear-gradient(180deg, #e8dcc8 0%, #ddd0b8 100%)" }}
-      onMouseEnter={() => setAutoPlay(false)}
-      onMouseLeave={() => setAutoPlay(true)}
+      className="w-full rounded-[22px] overflow-hidden shadow-2xl border border-[var(--border-strong)] bg-[var(--bg-card)] select-none transition-all duration-300"
+      style={{ background: "linear-gradient(180deg, #ede3cf 0%, #e0d2b7 100%)" }}
     >
-      {/* ── Window chrome ── */}
+      {/* ── Window Chrome Top Header ── */}
       <div
-        className="px-4 pt-3 pb-0"
-        style={{ background: "linear-gradient(180deg, #ede2cb 0%, #e2d3b6 100%)" }}
+        className="px-4 pt-3.5 pb-0 border-b border-[rgba(180,155,110,0.35)]"
+        style={{ background: "linear-gradient(180deg, #f0e6d2 0%, #e5d7be 100%)" }}
       >
-        {/* Title bar */}
-        <div className="flex items-center gap-3 mb-2.5">
-          {/* Traffic lights */}
+        {/* Title & Navigation Bar */}
+        <div className="flex items-center gap-3 mb-3">
+          {/* Traffic Lights */}
           <div className="flex items-center gap-1.5">
             <button
-              onClick={() => setAutoPlay(false)}
-              className="w-3 h-3 rounded-full cursor-pointer transition-opacity hover:opacity-80"
-              style={{ background: "#c0845c" }}
-              title="Pausar rotação"
+              className="w-3 h-3 rounded-full bg-[#e06b53] hover:opacity-80 transition-opacity"
+              title="Fechar aba"
             />
-            <div className="w-3 h-3 rounded-full" style={{ background: "#c4a84f" }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: "#6b8f5e" }} />
+            <button
+              className="w-3 h-3 rounded-full bg-[#e5b84c] hover:opacity-80 transition-opacity"
+              title="Minimizar"
+            />
+            <button
+              className="w-3 h-3 rounded-full bg-[#62b265] hover:opacity-80 transition-opacity"
+              title="Expandir"
+            />
           </div>
 
-          {/* Address bar */}
-          <div
-            className="flex-1 flex items-center gap-2 px-3 py-1.5 rounded-lg border"
-            style={{
-              background: "rgba(255,255,255,0.55)",
-              borderColor: "rgba(180,155,110,0.4)",
-            }}
-          >
-            {isLoading ? (
-              <RefreshCw className="w-3 h-3 text-[#7a6540] animate-spin shrink-0" />
-            ) : (
-              <div
-                className="w-2.5 h-2.5 rounded-full shrink-0 transition-colors duration-500"
-                style={{ background: accentColor }}
-              />
-            )}
-            <span className="font-mono-meta text-[11px] text-[#5a4a28] truncate font-medium">
-              {url}
-            </span>
-          </div>
-
-          {/* Nav arrows */}
-          <div className="flex items-center gap-1">
+          {/* Navigation Arrows */}
+          <div className="flex items-center gap-0.5">
             <button
               onClick={() => goTo((activeIdx - 1 + browserProjects.length) % browserProjects.length)}
-              className="w-6 h-6 rounded flex items-center justify-center hover:bg-black/10 transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-black/10 transition-colors cursor-pointer"
+              title="Voltar"
             >
-              <ChevronLeft className="w-3.5 h-3.5 text-[#5a4a28]" />
+              <ChevronLeft className="w-4 h-4 text-[#5a4a28]" />
             </button>
             <button
               onClick={() => goTo((activeIdx + 1) % browserProjects.length)}
-              className="w-6 h-6 rounded flex items-center justify-center hover:bg-black/10 transition-colors cursor-pointer"
+              className="w-7 h-7 rounded-lg flex items-center justify-center hover:bg-black/10 transition-colors cursor-pointer"
+              title="Avançar"
             >
-              <ChevronRight className="w-3.5 h-3.5 text-[#5a4a28]" />
+              <ChevronRight className="w-4 h-4 text-[#5a4a28]" />
             </button>
+          </div>
+
+          {/* Safari Address Bar */}
+          <div
+            className="flex-1 flex items-center justify-between gap-2 px-3.5 py-1.5 rounded-xl border transition-all"
+            style={{
+              background: "rgba(255,255,255,0.75)",
+              borderColor: "rgba(180,155,110,0.45)",
+              boxShadow: "inset 0 1px 2px rgba(0,0,0,0.04)",
+            }}
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <Lock className="w-3 h-3 text-[#6b8f5e] shrink-0" />
+              <span className="font-mono-meta text-[11px] text-[#4a3e20] truncate font-medium">
+                https://{url}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleRefresh}
+                className="p-1 hover:bg-black/10 rounded-md transition-colors cursor-pointer text-[#7a6540]"
+                title="Recarregar página"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin text-[#b85434]" : ""}`} />
+              </button>
+
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#b85434]/10 hover:bg-[#b85434]/20 text-[#b85434] font-mono-meta text-[10px] font-bold tracking-wider transition-colors cursor-pointer"
+                  title="Abrir site oficial em nova guia"
+                >
+                  <span>Abrir</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex items-end gap-0.5 overflow-x-auto hide-scrollbar">
+        {/* Safari Tabs */}
+        <div className="flex items-end gap-1 overflow-x-auto hide-scrollbar">
           {browserProjects.map((proj, idx) => {
             const isActive = idx === activeIdx;
             return (
               <button
                 key={proj.id}
                 onClick={() => goTo(idx)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-t-lg text-[11px] font-mono-meta font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 min-w-0 max-w-[160px] relative"
+                className="flex items-center gap-2 px-3.5 py-2 rounded-t-xl text-[11px] font-mono-meta font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shrink-0 min-w-0 max-w-[170px] relative"
                 style={{
                   background: isActive
-                    ? "linear-gradient(180deg, #f9f4ea 0%, #f4ecd8 100%)"
+                    ? "linear-gradient(180deg, #fdfbf7 0%, #f9f5ec 100%)"
                     : "transparent",
-                  color: isActive ? "#3a2e18" : "#7a6540",
-                  borderTop: isActive ? "1.5px solid rgba(180,155,110,0.5)" : "1.5px solid transparent",
-                  borderLeft: isActive ? "1.5px solid rgba(180,155,110,0.4)" : "1.5px solid transparent",
-                  borderRight: isActive ? "1.5px solid rgba(180,155,110,0.4)" : "1.5px solid transparent",
+                  color: isActive ? "#2c2415" : "#7a684c",
+                  borderTop: isActive ? "2px solid #b85434" : "2px solid transparent",
+                  borderLeft: isActive ? "1px solid rgba(180,155,110,0.4)" : "1px solid transparent",
+                  borderRight: isActive ? "1px solid rgba(180,155,110,0.4)" : "1px solid transparent",
                   marginBottom: isActive ? "-1px" : "0",
-                  zIndex: isActive ? 2 : 1,
+                  zIndex: isActive ? 10 : 1,
+                  boxShadow: isActive ? "0 -2px 6px rgba(0,0,0,0.03)" : "none",
                 }}
               >
                 <SafariFavicon project={proj} />
@@ -160,184 +197,111 @@ export default function SafariBrowserMockup() {
               </button>
             );
           })}
-          <button className="p-2 hover:bg-black/10 rounded-lg transition-colors cursor-pointer shrink-0">
-            <Plus className="w-3 h-3 text-[#7a6540]" />
-          </button>
         </div>
       </div>
 
-      {/* ── Viewport ── */}
+      {/* ── Browser Viewport Area ── */}
       <div
-        className="relative overflow-hidden"
-        style={{
-          background: "linear-gradient(160deg, #f9f4ea 0%, #f2e8d2 100%)",
-          minHeight: 340,
-        }}
+        className="relative overflow-hidden bg-[#faf7f0] dark:bg-[#191612]"
+        style={{ minHeight: "560px", height: "640px" }}
       >
-        {/* Loading bar */}
+        {/* Animated Loading Bar */}
         <div
-          className="absolute top-0 left-0 h-0.5 transition-all duration-500 rounded-r-full z-10"
+          className="absolute top-0 left-0 h-1 transition-all duration-300 rounded-r-full z-20"
           style={{
-            width: isLoading ? "70%" : isAnimating ? "100%" : "0%",
-            background: `linear-gradient(90deg, ${accentColor}, ${accentColor}88)`,
-            opacity: isLoading ? 1 : 0,
-            transition: isLoading ? "width 0.5s ease" : "opacity 0.3s ease",
+            width: isLoading ? "80%" : isAnimating ? "100%" : "0%",
+            background: "linear-gradient(90deg, #b85434, #e07452)",
+            opacity: isLoading || isAnimating ? 1 : 0,
           }}
         />
 
-        {/* Page content */}
+        {/* Content Container */}
         <div
-          className="p-0 transition-all duration-200"
-          style={{
-            opacity: isAnimating ? 0 : 1,
-            transform: isAnimating ? "translateY(6px)" : "translateY(0)",
-          }}
+          className="w-full h-full transition-opacity duration-200 overflow-y-auto"
+          style={{ opacity: isAnimating ? 0 : 1 }}
         >
-          {/* Fake browser top bar inside page */}
-          <div
-            className="px-6 py-3 flex items-center gap-3 border-b"
-            style={{
-              borderColor: "rgba(180,155,110,0.25)",
-              background: "rgba(255,255,255,0.4)",
-            }}
-          >
-            <span
-              className="font-mono-meta text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded"
-              style={{ background: accentColor + "18", color: accentColor }}
-            >
-              {project.badge}
-            </span>
-            <span className="font-mono-meta text-[10px] text-[#9a8660] uppercase tracking-widest">
-              {project.category}
-            </span>
-            <span className="ml-auto font-mono-meta text-[10px] text-[#b09970]">
-              {project.year}
-            </span>
-          </div>
+          {/* If the project has an external live URL (e.g. Vostro, Delivery), render real interactive iframe */}
+          {project.liveUrl ? (
+            <div className="relative w-full h-full flex flex-col bg-white">
+              {/* Subtle Protected Mode Floating Pill */}
+              <div className="absolute top-3 right-4 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md text-white font-mono-meta text-[10px] tracking-wider uppercase shadow-xl pointer-events-none border border-white/20">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Visualização Interativa · Scroll & Hover</span>
+              </div>
 
-          {/* Main content grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-            {/* Left: Info */}
-            <div className="p-7 flex flex-col justify-between">
-              <div>
-                <h3
-                  className="font-serif-title text-3xl sm:text-4xl font-normal leading-tight mb-3"
-                  style={{ color: "#2b271d" }}
-                >
-                  {project.shortTitle}
-                </h3>
-                <p className="font-sans-body text-sm text-[#857b68] leading-relaxed mb-5">
-                  {project.subtitle}
-                </p>
-
-                {/* Results */}
-                <div className="space-y-2 mb-6">
-                  {project.results.map((result, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <span
-                        className="w-1.5 h-1.5 rounded-full shrink-0 mt-1.5"
-                        style={{ background: accentColor }}
-                      />
-                      <span className="font-sans-body text-[13px] text-[#5a4a28]">{result}</span>
-                    </div>
-                  ))}
+              {/* Real Iframe */}
+              <iframe
+                key={`${project.id}-${refreshKey}`}
+                src={project.liveUrl}
+                title={project.title}
+                className="w-full flex-1 border-0 bg-white"
+                sandbox="allow-scripts allow-same-origin allow-forms"
+                loading="lazy"
+                onLoad={() => setIsLoading(false)}
+              />
+            </div>
+          ) : (
+            /* For internal proprietary systems, render their dedicated live engines */
+            <div className="p-4 sm:p-6 h-full flex flex-col justify-start">
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-color)]">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="font-mono-meta text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded"
+                    style={{ background: accentColor + "18", color: accentColor }}
+                  >
+                    {project.badge}
+                  </span>
+                  <span className="font-mono-meta text-[11px] text-[var(--text-secondary)] font-semibold">
+                    {project.title}
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5 font-mono-meta text-[10px] text-[var(--accent-moss-dark)] font-bold">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Demonstração em Tempo Real</span>
                 </div>
               </div>
 
-              {/* Tech chips */}
-              <div className="flex flex-wrap gap-1.5">
-                {project.techStack.slice(0, 5).map((tech) => (
-                  <span
-                    key={tech}
-                    className="font-mono-meta text-[10px] px-2.5 py-1 rounded-full border font-semibold uppercase tracking-wider"
-                    style={{
-                      background: accentColor + "12",
-                      borderColor: accentColor + "30",
-                      color: accentColor,
-                    }}
-                  >
-                    {tech}
-                  </span>
-                ))}
+              <div className="flex-1">
+                {project.demoType === "interactive-live" && <LiveTargetDashboard />}
+                {project.demoType === "interactive-tickets" && <LiveTicketSystem />}
+                {project.demoType === "interactive-messaging" && <MessagingFlow />}
               </div>
             </div>
-
-            {/* Right: Screenshot */}
-            <div
-              className="relative overflow-hidden"
-              style={{ borderLeft: "1px solid rgba(180,155,110,0.2)" }}
-            >
-              <img
-                key={project.id}
-                src={project.image}
-                alt={project.shortTitle}
-                className="w-full h-full object-cover"
-                style={{
-                  minHeight: 280,
-                  filter: "sepia(15%) contrast(0.95) brightness(0.98)",
-                }}
-              />
-              {/* Vintage vignette */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: "linear-gradient(135deg, rgba(249,244,234,0.25) 0%, transparent 60%, rgba(180,150,90,0.15) 100%)",
-                }}
-              />
-              {/* External link button */}
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute bottom-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono-meta text-[11px] font-bold transition-all hover:scale-105"
-                  style={{
-                    background: "rgba(249,244,234,0.9)",
-                    border: "1px solid rgba(180,155,110,0.5)",
-                    color: accentColor,
-                    backdropFilter: "blur(8px)",
-                  }}
-                >
-                  <ExternalLink className="w-3 h-3" />
-                  Abrir site
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* Status bar */}
-          <div
-            className="px-6 py-2 flex items-center justify-between border-t"
-            style={{
-              borderColor: "rgba(180,155,110,0.2)",
-              background: "rgba(255,255,255,0.3)",
-            }}
-          >
-            <span className="font-mono-meta text-[10px] text-[#a09070]">
-              {project.role}
-            </span>
-            <div className="flex items-center gap-1.5">
-              {browserProjects.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => goTo(i)}
-                  className="rounded-full transition-all duration-300 cursor-pointer"
-                  style={{
-                    width: i === activeIdx ? 16 : 6,
-                    height: 6,
-                    background: i === activeIdx ? accentColor : accentColor + "40",
-                  }}
-                />
-              ))}
-            </div>
-            <span
-              className="font-mono-meta text-[10px] font-bold"
-              style={{ color: accentColor }}
-            >
-              {autoPlay ? "▶ auto" : "⏸ pausado"}
-            </span>
-          </div>
+          )}
         </div>
+      </div>
+
+      {/* ── Status Footer ── */}
+      <div
+        className="px-6 py-2.5 flex items-center justify-between border-t border-[rgba(180,155,110,0.3)] font-mono-meta text-[10px] text-[#7a6540]"
+        style={{ background: "linear-gradient(180deg, #e7d8be 0%, #decdb1 100%)" }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-[#4a3e20]">{project.role}</span>
+          <span className="opacity-40">•</span>
+          <span>{project.category}</span>
+        </div>
+
+        {/* Tab Pagination Indicators */}
+        <div className="flex items-center gap-1.5">
+          {browserProjects.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className="rounded-full transition-all duration-300 cursor-pointer"
+              style={{
+                width: i === activeIdx ? 16 : 6,
+                height: 6,
+                background: i === activeIdx ? "#b85434" : "rgba(184,84,52,0.3)",
+              }}
+              title={`Aba ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        <span className="font-bold text-[#b85434]">
+          {project.liveUrl ? "🌐 Iframe Conectado" : "⚡ Engine Ativa"}
+        </span>
       </div>
     </div>
   );

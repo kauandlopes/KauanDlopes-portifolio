@@ -24,8 +24,8 @@ export default function ContactSection() {
         {/* Contact Big Banner Card */}
         <div className="relative rounded-[36px] bg-[var(--accent-terra-dark)] text-[var(--bg-page)] border border-[var(--border-strong)] p-8 sm:p-14 lg:p-18 shadow-2xl overflow-hidden">
           {/* Subtle background circular decor */}
-          <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full border border-white/15 pointer-events-none" />
-          <div className="absolute -right-10 -bottom-10 w-60 h-60 rounded-full border border-white/20 pointer-events-none animate-spin-slow" />
+          <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full border border-white/10 pointer-events-none" />
+          <div className="absolute -right-10 -bottom-10 w-60 h-60 rounded-full border border-white/10 pointer-events-none" />
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
             {/* Left side: Heading and copy */}

@@ -1,31 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { ArrowUpRight } from "lucide-react";
 
 export default function CustomCursor() {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
   const [cursorText, setCursorText] = useState("");
   const [isHovered, setIsHovered] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+
+  const mousePos = useRef({ x: -100, y: -100 });
+  const ringPos = useRef({ x: -100, y: -100 });
+  const rafId = useRef<number | null>(null);
+
   useEffect(() => {
-    // Enable only on desktop pointer devices
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+    // Only enable on fine pointer desktop devices
+    if (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window) {
+      return;
+    }
 
     const handleMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      mousePos.current = { x: e.clientX, y: e.clientY };
       if (!isVisible) setIsVisible(true);
     };
+
+    const handleMouseDown = () => setIsClicking(true);
+    const handleMouseUp = () => setIsClicking(false);
 
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
 
+    // Smooth RAF physics loop for follower ring
+    const render = () => {
+      // Lerp follow with smooth dampening (0.16)
+      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.18;
+      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.18;
+
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0) translate(-50%, -50%)`;
+      }
+
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0) translate(-50%, -50%)`;
+      }
+
+      rafId.current = requestAnimationFrame(render);
+    };
+
+    rafId.current = requestAnimationFrame(render);
+
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
     };
   }, [isVisible]);
 
@@ -38,7 +75,9 @@ export default function CustomCursor() {
       if (cursorTarget) {
         setIsHovered(true);
         setCursorText(cursorTarget.getAttribute("data-cursor") || "VER");
-      } else if (target.closest("button, a, input, [role='button']")) {
+      } else if (
+        target.closest("button, a, input, select, textarea, [role='button'], .cursor-pointer")
+      ) {
         setIsHovered(true);
         setCursorText("");
       } else {
@@ -53,34 +92,39 @@ export default function CustomCursor() {
 
   if (!isVisible) return null;
 
-  const ringStyle = cursorText
-    ? "w-16 h-16 bg-[#1f1a14] dark:bg-[#f5efe6] text-[#f5efe6] dark:text-[#1f1a14] shadow-xl"
-    : isHovered
-    ? "w-12 h-12 border-2 border-[#b85434] dark:border-[#e07452] bg-[#b85434]/15 dark:bg-[#e07452]/20"
-    : "w-8 h-8 border border-[#1f1a14]/25 dark:border-[#f5efe6]/25";
-
   return (
     <>
-      {/* Central Dot */}
+      {/* Precision Inner Dot */}
       <div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-[#b85434] dark:bg-[#e07452] transition-opacity duration-200 hidden md:block"
-        style={{
-          width: isHovered ? "6px" : "8px",
-          height: isHovered ? "6px" : "8px",
-          transform: `translate3d(${position.x}px, ${position.y}px, 0) translate(-50%, -50%)`,
-          willChange: "transform",
-        }}
+        ref={dotRef}
+        className={`fixed top-0 left-0 pointer-events-none z-[9999] rounded-full transition-all duration-150 ease-out hidden md:block ${
+          cursorText
+            ? "w-1.5 h-1.5 opacity-0"
+            : isHovered
+            ? "w-2 h-2 bg-[var(--accent-terra)] opacity-90 scale-90"
+            : "w-2 h-2 bg-[var(--accent-terra)] shadow-[0_0_8px_rgba(184,84,52,0.6)] dark:shadow-[0_0_8px_rgba(224,116,82,0.7)]"
+        } ${isClicking ? "scale-50" : ""}`}
+        style={{ willChange: "transform" }}
       />
 
-      {/* Perfectly Centered Outer Ring / Badge */}
+      {/* Smooth Liquid Follower Ring / Interactive Pill Badge */}
       <div
-        className={`fixed top-0 left-0 pointer-events-none z-[9998] rounded-full flex items-center justify-center font-mono-meta text-[10px] font-bold uppercase tracking-wider transition-all duration-200 ease-out hidden md:flex ${ringStyle}`}
-        style={{
-          transform: `translate3d(${position.x}px, ${position.y}px, 0) translate(-50%, -50%)`,
-          willChange: "transform, width, height",
-        }}
+        ref={ringRef}
+        className={`fixed top-0 left-0 pointer-events-none z-[9998] transition-all duration-200 ease-out hidden md:flex items-center justify-center font-mono-meta ${
+          cursorText
+            ? "px-3.5 py-1.5 min-h-[32px] rounded-full bg-[var(--text-primary)] text-[var(--bg-page)] text-[10px] font-bold tracking-widest uppercase shadow-2xl border border-white/20 scale-100 gap-1"
+            : isHovered
+            ? "w-12 h-12 rounded-full border-2 border-[var(--accent-terra)] bg-[var(--accent-terra)]/15 backdrop-blur-[2px] shadow-sm scale-100"
+            : "w-8 h-8 rounded-full border border-[var(--accent-terra)]/40 dark:border-[var(--accent-terra)]/50 bg-[var(--accent-terra)]/5 backdrop-blur-[0.5px] scale-100"
+        } ${isClicking ? "scale-90" : ""}`}
+        style={{ willChange: "transform" }}
       >
-        {cursorText}
+        {cursorText && (
+          <span className="flex items-center gap-1">
+            {cursorText}
+            <ArrowUpRight className="w-3 h-3 stroke-[2.5]" />
+          </span>
+        )}
       </div>
     </>
   );
